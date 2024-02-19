@@ -1,5 +1,5 @@
 import React from "react";
-import AllBlog from "@/components/invoice/AllBlog";
+import AllBlog from "@/components/employee/AllBlog";
 
 const page = () => {
   return <AllBlog />;

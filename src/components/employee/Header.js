@@ -36,11 +36,11 @@ const Header = () => {
           <picture>
             <img src="/man-smiling.jpg" className="rounded-full h-8 border-2 border-white shadow-sm" alt="profile picture" />
           </picture>
-          {session && (
+          {/* {session && (
             <button className="bg-gray-300 hover:bg-gray-700 hover:text-white text-sm font-semibold py-1 px-2 rounded" onClick={handleLogout}>
               Sign Out
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

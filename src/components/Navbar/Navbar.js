@@ -120,11 +120,6 @@ export default function Navbar() {
                             </li>
                           </ul>
                         </li>
-                        <li style={{ display: "inline-block", marginRight: "30px" }}>
-                          <Link href="/invoice">
-                            <b>Invoice</b>
-                          </Link>
-                        </li>
                         <li style={{ display: "inline-block" }}>
                           <Link href="/cont">
                             <b>Contact</b>
@@ -133,21 +128,6 @@ export default function Navbar() {
                       </ul>
                     </div>
                   </div>
-
-                  {session ? (
-                    <button className="bg-gray-300 hover:bg-gray-700 hover:text-white text-sm font-semibold py-2 px-4 rounded" onClick={handleLogout}>
-                      Sign Out
-                    </button>
-                  ) : (
-                    <>
-                      <Link href="/sign-up">
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded">Sign Up</button>
-                      </Link>
-                      <Link href="/login">
-                        <button className="bg-gray-300 hover:bg-gray-700 hover:text-white text-sm font-semibold py-2 px-4 rounded">Sign In</button>
-                      </Link>
-                    </>
-                  )}
                 </div>
               </div>
 

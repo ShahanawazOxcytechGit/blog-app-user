@@ -1,5 +1,5 @@
 import React from "react";
-import AllCustomer from "@/components/invoice/AllCustomer";
+import AllCustomer from "@/components/employee/AllCustomer";
 
 const page = () => {
   return <AllCustomer />;

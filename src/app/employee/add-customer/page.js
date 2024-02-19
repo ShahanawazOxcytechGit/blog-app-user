@@ -1,10 +1,10 @@
-import AddBlog from "@/components/invoice/AddBlog";
+import AddCustomer from "@/components/employee/AddCustomer";
 import React from "react";
 
 const page = () => {
   return (
     <>
-      <AddBlog />
+      <AddCustomer />
     </>
   );
 };
