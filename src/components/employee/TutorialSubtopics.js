@@ -3,13 +3,17 @@ import React, { useEffect, useMemo, useState, useRef } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import CommonTable from "../common/CommonTable";
+import CommonTable from "@/components/common/CommonTable";
 
 const TutorialSubtopics = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+  const [isDeleteDialog, setDeleteDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [metadata, setMetadata] = useState("");
   const [content, setContent] = useState("");
+  const [selectedId, setSelectedId] = useState();
+
   const editorRef = useRef();
 
   useEffect(() => {
@@ -20,6 +24,15 @@ const TutorialSubtopics = () => {
 
   const handleAddTutorial = () => {
     setOpenDialog(true);
+  };
+
+  const handleDelete = (row) => {
+    setDeleteDialog(true);
+    setSelectedId(row.original.id);
+  };
+  const handleUpdate = (row) => {
+    setUpdateModalOpen(true);
+    setSelectedId(row.original.id);
   };
 
   const data = [
@@ -58,11 +71,7 @@ const TutorialSubtopics = () => {
           return (
             <div className="text-xs">
               <div className="flex items-center gap-4">
-                <button
-                  className="text-xs text-blue-500"
-                  type="button"
-                  //   onClick={() => handleEmployeeEdit(row)}
-                >
+                <button className="text-xs text-blue-500" type="button" onClick={() => handleUpdate(row)}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path
                       strokeLinecap="round"
@@ -71,11 +80,7 @@ const TutorialSubtopics = () => {
                     />
                   </svg>
                 </button>
-                <button
-                  className="text-xs text-red-700 "
-                  type="button"
-                  //   onClick={() => handleEmployeeDelete(row)}
-                >
+                <button className="text-xs text-red-700 " type="button" onClick={() => handleDelete(row)}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path
                       strokeLinecap="round"
@@ -152,6 +157,75 @@ const TutorialSubtopics = () => {
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
           <Button>Save</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={isUpdateModalOpen} onClose={() => setUpdateModalOpen(false)} maxWidth="md" fullWidth>
+        <DialogTitle>Update Tutorial</DialogTitle>
+        <DialogContent sx={{ display: "flex", flexDirection: "column", px: 4 }}>
+          <div className="flex flex-col items-center gap-3 py-5 lg:flex-row lg:justify-between lg:items-start">
+            <div className="flex flex-col gap-3">
+              <input
+                id="title"
+                name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Tutorial Title"
+                className="text-sm md:text-base md:w-[850px] sm:w-[300px] h-[30px] md:h-[40px] px-2 py-0 border-gray-300 placeholder-gray-500 outline-none rounded-md"
+              />
+              <input
+                type="text"
+                id="metadata"
+                name="metadata"
+                value={metadata}
+                onChange={(e) => setMetadata(e.target.value)}
+                placeholder="Tutorial Metadata"
+                className="text-sm md:text-base md:w-[850px] sm:w-[300px] h-[30px] md:h-[40px] px-2 py-0 border-gray-300 placeholder-gray-500 outline-none rounded-md"
+              />
+
+              <SunEditor
+                ref={editorRef}
+                setContents={content}
+                onChange={setContent}
+                placeholder="Tutorial Content"
+                setOptions={{
+                  width: "100%", // Use percentage for width
+                  height: "400px", // Use px unit for height
+                  buttonList: [
+                    ["undo", "redo"],
+                    ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+                    ["removeFormat"],
+                    ["outdent", "indent"],
+                    ["fullScreen", "showBlocks", "codeView"],
+                    ["preview", "print"],
+                    ["link", "image", "video"],
+                    ["font", "fontSize", "formatBlock", "align", "list", "table"],
+                    ["fontColor", "hiliteColor", "horizontalRule"],
+                  ],
+                  font: ["Arial", "Courier New"], // Example: specify fonts
+                  fontColor: "red", // Set font color
+                  backgroundColor: "red", // Set background color
+                }}
+              />
+            </div>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setUpdateModalOpen(false)}>Cancel</Button>
+          <Button>Update</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={isDeleteDialog} onClose={() => setDeleteDialog(false)}>
+        <DialogTitle>Delete Tutorial</DialogTitle>
+        <DialogContent>
+          <p>Are you sure you want to delete this Tutorial?</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialog(false)}>Cancel</Button>
+          <Button
+            // onClick={confirmDelete}
+            color="error">
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

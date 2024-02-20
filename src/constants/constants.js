@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 const SIDENAV_ITEMS = [
   {
     title: "Home",
-    path: "/invoice",
+    path: "/employee",
     icon: <Icon icon="lucide:home" width="24" height="24" />,
   },
   {
