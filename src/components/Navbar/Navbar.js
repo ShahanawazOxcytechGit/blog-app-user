@@ -33,11 +33,11 @@ export default function Navbar() {
 
   return (
     <div className="w-full bg-white fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Disclosure as="nav">
           {({ open }) => (
             <div>
-              <div className="h-20 flex items-center justify-between  px-2 sm:px-0">
+              <div className="h-20 flex items-center justify-between px-2 sm:px-0">
                 <div className="flex items-center flex-shrink-0 ">
                   {/* Mobile menu button */}
                   <div className="flex md:hidden">
@@ -63,6 +63,15 @@ export default function Navbar() {
                           }}>
                           <Link href="/">
                             <b>Home</b>
+                          </Link>
+                        </li>
+                        <li
+                          style={{
+                            display: "inline-block",
+                            marginRight: "30px",
+                          }}>
+                          <Link href="/about">
+                            <b>About</b>
                           </Link>
                         </li>
                         <li
