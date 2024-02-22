@@ -6,7 +6,7 @@ import "suneditor/dist/css/suneditor.min.css";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
-  const [metadata, setMetadata] = useState("");
+  const [metaData, setMetaData] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState("");
@@ -26,29 +26,27 @@ const AddBlog = () => {
 
   const handleAddBlog = async (e) => {
     e.preventDefault();
-    // try {
-    //   const formData = new FormData();
-    //   formData.append("title", title);
-    //   formData.append("content", content);
-    //   formData.append("image", image);
+    try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("metaData", metaData);
+      formData.append("content", content);
+      formData.append("image", image);
 
-    //   const response = await fetch("/api/addblog", {
-    //     method: "POST",
-    //     body: formData,
-    //   });
+      const response = await fetch("/api/add-blog", {
+        method: "POST",
+        body: formData,
+      });
 
-    //   const { error, result } = await response.json();
-
-    //   if (error !== undefined) {
-    //     console.log("Blog Added error:", error);
-    //   }
-    //   setTitle("");
-    //   setContent("");
-    //   setImage(null);
-    //   setImageName("");
-    // } catch (error) {
-    //   console.error("Blog addition operation error", error);
-    // }
+      setTitle("");
+      setMetaData("");
+      setContent("");
+      setImage(null);
+      setImageName("");
+      return response.json({ message: "Blog added successfully!" });
+    } catch (error) {
+      console.error("Blog addition operation error", error);
+    }
   };
 
   return (
@@ -72,13 +70,23 @@ const AddBlog = () => {
               />
               <input
                 type="text"
-                id="metadata"
-                name="metadata"
-                value={metadata}
-                onChange={(e) => setMetadata(e.target.value)}
-                placeholder="Blog Metadata"
+                id="metaData"
+                name="metaData"
+                value={metaData}
+                onChange={(e) => setMetaData(e.target.value)}
+                placeholder="Blog MetaData"
                 className="text-sm md:text-base md:w-[850px] sm:w-[300px] h-[30px] md:h-[40px] px-2 py-0 border-gray-300 placeholder-gray-500 outline-none rounded-md"
               />
+              <label htmlFor="image" className="p-2 border border-gray-300 relative cursor-pointer text-gray-500 hover:text-blue-700">
+                <span>{imageName ? imageName : "Upload Blog Image"}</span>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  onChange={handleImageChange}
+                  className="hidden text-sm md:text-base md:w-[850px] sm:w-[300px] h-[30px] md:h-[40px] px-2 py-0 border-gray-300 outline-none rounded-md"
+                />
+              </label>
 
               <SunEditor
                 ref={editorRef}
