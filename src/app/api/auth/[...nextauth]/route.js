@@ -1,7 +1,9 @@
-import pool from "@/database/db";
 import { NextResponse } from "next/server";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const authOption = {
   pages: {
@@ -14,20 +16,19 @@ export const authOption = {
 
       async authorize(credentials) {
         try {
-          const connection = await pool.getConnection();
           if (!credentials?.email || !credentials?.password) {
             return null;
           }
-          let user = await connection.query(`SELECT * FROM registration WHERE email = '${credentials.email}'`);
-          user = user[0][0];
 
-          if (!user) {
+          let employee = await prisma.employee.findUnique({ where: { email: credentials.email } });
+
+          if (!employee) return null;
+
+          if (employee.password === credentials.password) {
+            return NextResponse.json(employee);
+          } else {
             return null;
           }
-          if (user.password) {
-            return user.password === credentials.password ? user : null;
-          }
-          connection.release();
         } catch (error) {
           return NextResponse.json({ status: 400, errors: error.messages });
         }

@@ -20,3 +20,20 @@ model Blog {
   image     String
   content   String?
 }
+
+model Employee{
+  id              Int @id @default(autoincrement())
+  email           String @unique
+  username        String
+  password        String
+  hashedPassword  String
+  access          String
+  action          String
+}
+
+model TutorialSubtopic {
+  id        Int @id @default(autoincrement())
+  title     String
+  metaData  String?
+  content   String
+}

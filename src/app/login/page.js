@@ -7,18 +7,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    const rememberedEmail = localStorage.getItem("rememberedEmail");
-    const rememberedPassword = localStorage.getItem("rememberedPassword");
-    if (rememberedEmail && rememberedPassword) {
-      setEmail(rememberedEmail);
-      setPassword(rememberedPassword);
-      setRememberMe(true);
-    }
-  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -34,12 +23,7 @@ const Page = () => {
         throw new Error("Wrong Credentials...");
       }
 
-      if (rememberMe) {
-        localStorage.setItem("rememberedEmail", email);
-        localStorage.setItem("rememberedPassword", password);
-      }
-
-      router.replace("/invoice");
+      router.replace("/employee");
     } catch (error) {
       console.log("Login error:", error);
     }
@@ -90,25 +74,9 @@ const Page = () => {
             placeholder="******"
           />
         </div>
-        <div className="flex justify-between mb-2">
-          <div className="flex items-center">
-            <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="mr-2" />
-            <p>Remember me</p>
-          </div>
-          <Link href="/forgot-password" className="font-bold text-blue-700 ml-2 hover:underline">
-            Forget password
-          </Link>
-        </div>
         <button type="submit" className="bg-gray-900 text-white rounded py-2 px-4 hover:bg-blue-600" style={{ width: 435 }}>
           Sign in
         </button>
-
-        <div className="mt-2">
-          Dont have an account?
-          <Link href="/sign-up" className="font-bold text-blue-700 ml-2 hover:underline">
-            Create account
-          </Link>
-        </div>
       </form>
     </div>
   );
