@@ -11,7 +11,7 @@ export default function Blog({ blog }) {
             <button className="absolute z-10 top-4 end-4 bg-indigo-500 hover:bg-indigo-700 text-white hover:text-gray-200 shadow-2xl hover:shadow-none font-semibold p-2 rounded-full "></button>
             <div className="card-zoom-image">
               <Link href="/">
-                <Image src={blog.image} alt="blogImage" width={1000} height={1000} className="h-[100%]" />
+                <Image src={blog.image} alt="blog-Image" width={1000} height={1000} className="h-[100%]" />
               </Link>
             </div>
           </div>
