@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://default:MYx9wankmEu4@ep-shy-voice-a4jrqceo-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+  url      = "postgres://default:VHPEQxW9O8Mp@ep-purple-cherry-a467yleu-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
 }
 
 model Employee {
