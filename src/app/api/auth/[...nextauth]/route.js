@@ -20,7 +20,9 @@ export const authOption = {
             return null;
           }
 
-          let employee = await prisma.employee.findUnique({ where: { email: credentials.email } });
+          let employee = await prisma.employee.findUnique({
+            where: { email: credentials.email },
+          });
 
           if (!employee) return null;
 
@@ -35,7 +37,8 @@ export const authOption = {
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  // secret: process.env.NEXTAUTH_SECRET,
+  secret: "secret",
 };
 
 const handler = NextAuth(authOption);

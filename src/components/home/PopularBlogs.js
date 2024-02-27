@@ -1,7 +1,24 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import BlogCard from "./BlogCard";
 
 const PopularBlogs = () => {
+  const [blogsData, setBlogsData] = useState([]);
+
+  const handleGetBlogs = async () => {
+    try {
+      const response = await axios.get("/api/get-all-blogs");
+      setBlogsData(response.data);
+    } catch (error) {
+      console.error("Blogs Get operation error", error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetBlogs();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-center md:justify-between flex-wrap gap-5">
@@ -14,15 +31,9 @@ const PopularBlogs = () => {
             <span>Month</span>
           </div>
         </div>
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
-      </div>
-      <div className="mt-5 flex justify-center md:justify-between flex-wrap gap-5">
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
+        {blogsData.map((blog) => (
+          <BlogCard key={blog.id} blog={blog} />
+        ))}
       </div>
     </div>
   );
