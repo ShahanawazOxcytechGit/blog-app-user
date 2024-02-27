@@ -96,7 +96,7 @@ const AddBlog = () => {
                 className="text-black"
                 setOptions={{
                   width: "100px",
-                  height: "1000px", // Use px unit for height
+                  height: "500px", // Use px unit for height
                   buttonList: [
                     ["undo", "redo"],
                     ["bold", "underline", "italic", "strike", "subscript", "superscript"],
