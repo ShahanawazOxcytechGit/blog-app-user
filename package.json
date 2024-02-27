@@ -37,6 +37,7 @@
     "formidable": "^3.5.1",
     "framer-motion": "^11.0.3",
     "fs": "^0.0.1-security",
+    "html-react-parser": "^5.1.7",
     "install": "^0.13.0",
     "jquery": "^3.7.1",
     "material-react-table": "^2.0.5",

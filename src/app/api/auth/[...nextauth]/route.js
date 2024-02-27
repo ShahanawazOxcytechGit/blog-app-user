@@ -20,7 +20,9 @@ export const authOption = {
             return null;
           }
 
-          let employee = await prisma.employee.findUnique({ where: { email: credentials.email } });
+          let employee = await prisma.employee.findUnique({
+            where: { email: credentials.email },
+          });
 
           if (!employee) return null;
 
