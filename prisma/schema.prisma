@@ -14,7 +14,7 @@ model Employee {
   password       String
   hashedPassword String
   access         String
-  action         String
+  action         Stringg
 }
 
 model TutorialSubtopic {
