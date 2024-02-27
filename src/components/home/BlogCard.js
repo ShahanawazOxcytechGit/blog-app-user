@@ -1,9 +1,7 @@
 import React from "react";
 import parse from "html-react-parser";
-import { useRouter } from "next/router";
+import Link from "next/link";
 const BlogCard = ({ blog }) => {
-  // const router = useRouter();
-
   if (!blog) {
     return (
       <div className="p-6 bg-gray-600 rounded-2xl text-white w-[250px] h-[300px]">
@@ -12,22 +10,15 @@ const BlogCard = ({ blog }) => {
     );
   }
   return (
-    <div className="p-6 bg-gray-300 rounded-2xl text-white w-[250px] h-80 overflow-auto ">
+    <div className="p-6 bg-gray-600 rounded-2xl text-white w-[250px] h-[300px]">
       <div className="flex gap-2 items-center">
         <span className="bg-black rounded-full px-3 py-1 font-bold">A</span>
-        <h3 className=" text-gray-900 font-semibold hover:text-gray-500 cursor-pointer">
-          Author
-        </h3>
+        <h3 className="font-semibold hover:text-gray-200 cursor-pointer">Blog Author</h3>
       </div>
-      <div>
-        <h3
-          className=" text-gray-900 font-semibold hover:text-gray-500 cursor-pointer"
-          // onClick={() => router.push("/employee")}
-        >
-          {blog.title}
-        </h3>
-      </div>
-      <div className="mt-4 text-white">{parse(blog.content)}</div>
+      <Link href={`/blog1`}>
+        <h2 className="mt-4 font-semibold text-xl hover:text-gray-200 cursor-pointer">{blog.title}</h2>
+      </Link>
+      <h4 className="mt-4">{parse(blog.content.slice(0, 100))}...</h4>
     </div>
   );
 };

@@ -109,7 +109,6 @@ const AddBlog = () => {
                     ["fontColor", "hiliteColor", "horizontalRule"],
                   ],
                   font: ["Arial", "Courier New"], // Example: specify fonts
-                  fontColor: "red", // Set font color
                   backgroundColor: "red", // Set background color
                 }}
               />

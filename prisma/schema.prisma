@@ -30,10 +30,5 @@ model Blog {
   metaData String?
   image    String
   content  String?
-}
-
-model Admin {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
-  password String
+  slug     String
 }

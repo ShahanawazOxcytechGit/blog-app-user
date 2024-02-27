@@ -44,6 +44,7 @@ export async function POST(req) {
         metaData: metaData,
         image: imagePath,
         content: content,
+        slug: slug,
       },
     });
 

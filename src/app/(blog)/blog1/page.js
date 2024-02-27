@@ -18,6 +18,7 @@ export default function Page() {
     async function fetchData() {
       try {
         const data = await fetchBlogData();
+        console.log(data);
         setBlogData(data);
       } catch (error) {
         console.error("Error fetching blog data:", error);
@@ -46,36 +47,26 @@ export default function Page() {
   };
 
   return (
-    <div style={{ overflowY: "scroll", scrollbarColor: "white white", scrollbarWidth: "thin", height: "100vh" }}>
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <div className="mx-auto max-w-2xl px-6 py-10 sm:px-8 sm:py-16 lg:max-w-7xl ">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 sm:gap-x-10">
-            <div className="col-span-8">
-              <BlogLists blogData={displayedData} />
-              <Pagination
-                handlePageChange={handlePageChange}
-                currentPage={currentPage}
-                totalBlogs={totalBlogs}
-                blogsPerPage={blogsPerPage}
-                startIndex={startIndex}
-                endIndex={endIndex}
-              />
-            </div>
-
-            <div className="col-span-4 space-y-10">
-              <UserProfile />
-              <FollowMe />
-              <FeaturedPosts />
-            </div>
-          </div>
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 sm:gap-x-10">
+        <div className="col-span-8">
+          <BlogLists blogData={displayedData} />
+          <Pagination
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+            totalBlogs={totalBlogs}
+            blogsPerPage={blogsPerPage}
+            startIndex={startIndex}
+            endIndex={endIndex}
+          />
         </div>
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+
+        <div className="col-span-4 space-y-10">
+          <UserProfile />
+          <FollowMe />
+          <FeaturedPosts />
+        </div>
+      </div>
     </div>
   );
 }
