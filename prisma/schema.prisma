@@ -20,7 +20,7 @@ model Employee {
 model TutorialSubtopic {
   id       Int     @id @default(autoincrement())
   title    String
-  metadata String?
+  metaData String?
   content  String
 }
 
