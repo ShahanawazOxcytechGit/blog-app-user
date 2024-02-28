@@ -11,9 +11,6 @@ export async function POST(req) {
     const metaData = data.get("metaData");
     const image = data.get("image");
     const content = data.get("content");
-    if (!image) {
-      return NextResponse.json({ success1: false });
-    }
 
     const slug = title
       .toLowerCase() // Convert the title to lowercase
@@ -22,7 +19,7 @@ export async function POST(req) {
       .replace(/\s+/g, "-") // Replace spaces with dashes
       .replace(/-+/g, "-");
 
-    const filenameParts = image.name.split(".");
+    const filenameParts = image?.name.split(".");
     const fileExtension = filenameParts[filenameParts.length - 1];
 
     const bytes = await image.arrayBuffer();

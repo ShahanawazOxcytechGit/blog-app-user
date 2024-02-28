@@ -83,6 +83,7 @@ const AddBlog = () => {
                   type="file"
                   id="image"
                   name="image"
+                  accept="image/*"
                   onChange={handleImageChange}
                   className="hidden text-sm md:text-base md:w-[850px] sm:w-[300px] h-[30px] md:h-[40px] px-2 py-0 border-gray-300 outline-none rounded-md"
                 />

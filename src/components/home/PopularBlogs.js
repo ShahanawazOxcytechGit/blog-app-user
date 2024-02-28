@@ -5,13 +5,17 @@ import BlogCard from "./BlogCard";
 
 const PopularBlogs = () => {
   const [blogsData, setBlogsData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleGetBlogs = async () => {
     try {
+      setLoading(true);
       const response = await axios.get("/api/get-all-blogs");
       setBlogsData(response.data);
     } catch (error) {
       console.error("Blogs Get operation error", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,9 +35,13 @@ const PopularBlogs = () => {
             <span>Month</span>
           </div>
         </div>
-        {blogsData.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))}
+        {loading ? (
+          <div className="p-6 bg-gray-600 rounded-2xl text-center w-[250px] h-[300px]">
+            <p className="text-white text-4xl">Loading...</p>
+          </div>
+        ) : (
+          blogsData.map((blog) => <BlogCard key={blog.id} blog={blog} />)
+        )}
       </div>
     </div>
   );

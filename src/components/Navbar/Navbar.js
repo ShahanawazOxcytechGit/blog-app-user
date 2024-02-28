@@ -78,12 +78,21 @@ export default function Navbar() {
                           style={{
                             display: "inline-block",
                             marginRight: "30px",
+                          }}>
+                          <Link href="/blog1">
+                            <b>Blog</b>
+                          </Link>
+                        </li>
+                        <li
+                          style={{
+                            display: "inline-block",
+                            marginRight: "30px",
                             position: "relative",
                           }}
                           onMouseEnter={toggleSubMenu}
                           onMouseLeave={toggleSubMenu}>
                           <Link href="/blog1" onClick={toggleSubMenu}>
-                            <b>Blog</b>
+                            <b>Tutorial</b>
                           </Link>
                           <ul
                             className="shadow"
