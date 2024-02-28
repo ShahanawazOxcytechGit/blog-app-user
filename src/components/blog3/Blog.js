@@ -18,7 +18,6 @@ export default function Blog({ blog }) {
           <h2 className="text-gray-800 text-2xl font-bold">{blog.title}</h2>
 
           <p className="text-justify text-gray-600 text-base font-normal leading-8">{parse(`${blog.content}`)}</p>
-          {/* <p className="text-justify text-gray-600 text-base font-normal leading-8">{blog.content}</p> */}
         </div>
       </div>
     </div>

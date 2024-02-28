@@ -17,11 +17,18 @@ model Employee {
   action         String
 }
 
+model TutorialTopic {
+  id       Int     @id @default(autoincrement())
+  title    String  @db.VarChar(255)
+  slug     String?
+}
+
 model TutorialSubtopic {
   id       Int     @id @default(autoincrement())
   title    String
   metaData String?
   content  String
+  slug     String
 }
 
 model Blog {
@@ -32,3 +39,4 @@ model Blog {
   content  String?
   slug     String?
 }
+

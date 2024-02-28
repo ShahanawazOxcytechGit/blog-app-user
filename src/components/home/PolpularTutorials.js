@@ -1,7 +1,28 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import TutorialCard from "./TutorialCard";
+import axios from "axios";
 
 const PopularTutorials = () => {
+  const [tutorialData, setTutorialData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleGetTutorials = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/api/get-all-tutorial-subtopics");
+      setTutorialData(response.data);
+    } catch (error) {
+      console.error("Tutorials Get operation error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetTutorials();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-center md:justify-between flex-wrap gap-5">
@@ -14,15 +35,14 @@ const PopularTutorials = () => {
             <span>Month</span>
           </div>
         </div>
-        <TutorialCard />
-        <TutorialCard />
-        <TutorialCard />
-      </div>
-      <div className="mt-5 flex justify-center md:justify-between flex-wrap gap-5">
-        <TutorialCard />
-        <TutorialCard />
-        <TutorialCard />
-        <TutorialCard />
+
+        {loading ? (
+          <div className="p-6 bg-gray-600 rounded-2xl text-center w-[250px] h-[300px]">
+            <p className="text-white text-4xl">Loading...</p>
+          </div>
+        ) : (
+          tutorialData.map((tutorial) => <TutorialCard key={tutorial.id} tutorial={tutorial} />)
+        )}
       </div>
     </div>
   );

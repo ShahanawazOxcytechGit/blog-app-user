@@ -91,17 +91,17 @@ export default function Navbar() {
                           }}
                           onMouseEnter={toggleSubMenu}
                           onMouseLeave={toggleSubMenu}>
-                          <Link href="/blog1" onClick={toggleSubMenu}>
+                          <Link href="/tutorial" onClick={toggleSubMenu}>
                             <b>Tutorial</b>
                           </Link>
                           <ul
                             className="shadow"
                             style={{
-                              width: 150,
+                              width: 110,
                               listStyle: "none",
-                              padding: 20,
+                              paddingBottom: 20,
                               marginLeft: -30,
-                              marginTop: 2,
+                              marginTop: 0,
                               position: "absolute",
                               top: "100%",
                               left: 0,
@@ -116,7 +116,9 @@ export default function Navbar() {
                                 paddingRight: 30,
                                 paddingTop: 20,
                               }}>
-                              <Link href="/blog1">Blog1</Link>
+                              <Link href="/tutorial" className="hover:bg-indigo-500 rounded-md px-2 py-1">
+                                Tutorial1
+                              </Link>
                             </li>
                             <li
                               style={{
@@ -125,7 +127,9 @@ export default function Navbar() {
                                 paddingRight: 30,
                                 paddingTop: 20,
                               }}>
-                              <Link href="/blog2">Blog2</Link>
+                              <Link href="/tutorial" className="hover:bg-indigo-500 rounded-md px-2 py-1">
+                                Tutorial2
+                              </Link>
                             </li>
                             <li
                               style={{
@@ -134,7 +138,9 @@ export default function Navbar() {
                                 paddingRight: 30,
                                 paddingTop: 20,
                               }}>
-                              <Link href="/blog3">Blog3</Link>
+                              <Link href="/tutorial" className="hover:bg-indigo-500 rounded-md px-2 py-1">
+                                Tutorial3
+                              </Link>
                             </li>
                           </ul>
                         </li>

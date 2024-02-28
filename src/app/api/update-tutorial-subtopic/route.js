@@ -7,6 +7,13 @@ export async function PUT(req) {
   try {
     const { selectedId, title, metaData, content } = await req.json();
 
+    const slug = title
+      .toLowerCase() // Convert the title to lowercase
+      .replace(/[^\w\s-]/g, "") // Remove non-word characters (excluding spaces and dashes)
+      .trim() // Trim leading and trailing spaces
+      .replace(/\s+/g, "-") // Replace spaces with dashes
+      .replace(/-+/g, "-");
+
     const TutorialSubtopicToUpdate = await prisma.tutorialSubtopic.findUnique({
       where: {
         id: parseInt(selectedId),
@@ -24,6 +31,7 @@ export async function PUT(req) {
         title,
         metaData,
         content,
+        slug,
       },
     });
 
