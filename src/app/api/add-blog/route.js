@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import { PrismaClient } from "@prisma/client";
+import { put } from "@vercel/blob";
 
 export async function POST(req) {
   try {
@@ -19,32 +20,35 @@ export async function POST(req) {
       .replace(/\s+/g, "-") // Replace spaces with dashes
       .replace(/-+/g, "-");
 
-    const filenameParts = image?.name.split(".");
-    const fileExtension = filenameParts[filenameParts.length - 1];
+    // const filenameParts = image?.name.split(".");
+    // const fileExtension = filenameParts[filenameParts.length - 1];
 
-    const bytes = await image.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // const bytes = await image.arrayBuffer();
+    // const buffer = Buffer.from(bytes);
 
-    const path = `./public/blog_images/${slug}.${fileExtension}`;
-    await new Promise((resolve, reject) => {
-      fs.writeFile(path, buffer, (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
+    // const path = `./public/blog_images/${slug}.${fileExtension}`;
+    // await new Promise((resolve, reject) => {
+    //   fs.writeFile(path, buffer, (err) => {
+    //     if (err) reject(err);
+    //     else resolve();
+    //   });
+    // });
+
+    // const imagePath = `/blog_images/${slug}.${fileExtension}`;
+
+    const blob = await put(image.name, image, {
+      access: "public",
     });
-
-    const imagePath = `/blog_images/${slug}.${fileExtension}`;
 
     const result = await prisma.blog.create({
       data: {
         title: title,
         metaData: metaData,
-        image: imagePath,
+        image: blob.url,
         content: content,
         slug: slug,
       },
     });
-
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error during blog addition:", error);
