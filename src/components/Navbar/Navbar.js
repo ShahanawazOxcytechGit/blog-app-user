@@ -7,9 +7,11 @@ import { navigationItems } from "./navigationItems";
 import MobileNavbar from "./MobileNavbar";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+import axios from "axios";
 
 export default function Navbar() {
   const [isSubMenuVisible, setSubMenuVisible] = useState(false);
+  const [tutorialTopics, setTutorialTopics] = useState([]);
 
   const toggleSubMenu = () => {
     setSubMenuVisible(!isSubMenuVisible);
@@ -17,6 +19,17 @@ export default function Navbar() {
   const pathname = usePathname(null);
 
   useEffect(() => {
+    const fetchTutorialTopics = async () => {
+      try {
+        const response = await axios.get("/api/get-tutorial-topics");
+        setTutorialTopics(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchTutorialTopics();
+
     const parentItem = navigationItems.find((item) => item.sublinks.some((sublink) => sublink.href === pathname));
 
     if (parentItem) {
@@ -91,7 +104,7 @@ export default function Navbar() {
                           }}
                           onMouseEnter={toggleSubMenu}
                           onMouseLeave={toggleSubMenu}>
-                          <Link href="/tutorial" onClick={toggleSubMenu}>
+                          <Link href="/tutorial">
                             <b>Tutorial</b>
                           </Link>
                           <ul
@@ -109,39 +122,20 @@ export default function Navbar() {
                               boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                               display: isSubMenuVisible ? "block" : "none",
                             }}>
-                            <li
-                              style={{
-                                display: "block",
-                                paddingLeft: "10px",
-                                paddingRight: 30,
-                                paddingTop: 20,
-                              }}>
-                              <Link href="/tutorial" className="hover:bg-indigo-500 rounded-md px-2 py-1">
-                                Tutorial1
-                              </Link>
-                            </li>
-                            <li
-                              style={{
-                                display: "block",
-                                paddingLeft: "10px",
-                                paddingRight: 30,
-                                paddingTop: 20,
-                              }}>
-                              <Link href="/tutorial" className="hover:bg-indigo-500 rounded-md px-2 py-1">
-                                Tutorial2
-                              </Link>
-                            </li>
-                            <li
-                              style={{
-                                display: "block",
-                                paddingLeft: "10px",
-                                paddingRight: 30,
-                                paddingTop: 20,
-                              }}>
-                              <Link href="/tutorial" className="hover:bg-indigo-500 rounded-md px-2 py-1">
-                                Tutorial3
-                              </Link>
-                            </li>
+                            {tutorialTopics.map((tt, ind) => (
+                              <li
+                                key={ind}
+                                style={{
+                                  display: "block",
+                                  paddingLeft: "10px",
+                                  paddingRight: 30,
+                                  paddingTop: 20,
+                                }}>
+                                <Link href={`/tutorial/${tt.slug}`} className="hover:bg-indigo-500 rounded-md px-2 py-1">
+                                  {tt.title}
+                                </Link>
+                              </li>
+                            ))}
                           </ul>
                         </li>
                         <li style={{ display: "inline-block" }}>
