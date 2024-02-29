@@ -131,7 +131,7 @@ export default function Navbar() {
                                   paddingRight: 30,
                                   paddingTop: 20,
                                 }}>
-                                <Link href={`/tutorial/${tt.slug}`} className="hover:bg-indigo-500 rounded-md px-2 py-1">
+                                <Link href={`/tutorial`} className="hover:bg-indigo-500 rounded-md px-2 py-1">
                                   {tt.title}
                                 </Link>
                               </li>
