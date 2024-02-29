@@ -3,6 +3,7 @@ import fs from "fs";
 import { PrismaClient } from "@prisma/client";
 import { put } from "@vercel/blob";
 
+export const dynamic = "force-dynamic";
 export async function POST(req) {
   try {
     const prisma = new PrismaClient();

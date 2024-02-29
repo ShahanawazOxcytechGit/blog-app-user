@@ -4,6 +4,7 @@ import path from "path";
 import { PrismaClient } from "@prisma/client";
 import { put } from "@vercel/blob";
 
+export const dynamic = "force-dynamic";
 export async function PUT(req) {
   const prisma = new PrismaClient();
   try {

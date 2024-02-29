@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+export const dynamic = "force-dynamic";
 export async function POST(req) {
   try {
     const { title, metaData, content } = await req.json();
