@@ -1,21 +1,26 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-
-const blogNavItems = [
-  { label: "Home1", href: "/home1" },
-  { label: "Home2", href: "/home2" },
-  { label: "About1", href: "/about1" },
-  { label: "About2", href: "/about2" },
-  { label: "Service1", href: "/service1" },
-  { label: "Blog1", href: "/blog1" },
-  { label: "Blog2", href: "/blog2" },
-  { label: "Contact1", href: "/contact1" },
-  { label: "Contact2", href: "/contact2" },
-];
+import { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [tutorialTopics, setTutorialTopics] = useState([]);
+
+  useEffect(() => {
+    const fetchTutorialTopics = async () => {
+      try {
+        const response = await axios.get("/api/get-tutorial-topics");
+        setTutorialTopics(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchTutorialTopics();
+  }, []);
+
+  const blogNavItems = useMemo(() => tutorialTopics.map((tt) => ({ label: tt.title, href: `/tutorial` })), [tutorialTopics]);
 
   const handleNav = () => {
     setOpen(!open);
@@ -39,7 +44,7 @@ export default function Nav() {
         <i className={`bi bi-chevron-double-${open ? "up" : "down"} text-white text-xl font-bold`} />
       </button>
 
-      <div className={`bg-white ${open ? "h-full" : "hidden md:block"} mt-0 sm:-mt-2 space-y-10 rounded-xl`}>
+      <div className={`bg-white ${!open ? "h-full" : "hidden md:block"} mt-0 sm:-mt-2 space-y-10 rounded-xl`}>
         <div>{blogNavItems.map(renderNavItem)}</div>
       </div>
     </>
