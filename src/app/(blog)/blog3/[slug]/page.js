@@ -7,10 +7,12 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function SlugPage({ params }) {
   const [blogData, setBlogData] = useState({});
+  const [loading, setLoading] = useState(false);
   const { slug } = params;
 
   const handleGetBlog = useCallback(async () => {
     try {
+      setLoading(true);
       const response = await fetch(`/api/get-blog?slug=${slug}`, {
         method: "GET",
         headers: {
@@ -22,6 +24,8 @@ export default function SlugPage({ params }) {
       setBlogData(result);
     } catch (error) {
       console.error("Blog Get operation error", error);
+    } finally {
+      setLoading(false);
     }
   }, [slug]);
 
@@ -41,7 +45,7 @@ export default function SlugPage({ params }) {
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 sm:gap-x-10">
-        <div className="col-span-8">{blogData && <Blog blog={blogData} />}</div>
+        <div className="col-span-8">{loading ? <div className="text-center text-4xl font-bold">Loading...</div> : <Blog blog={blogData} />}</div>
 
         <div className=" col-span-4 space-y-10">
           <UserProfile />
