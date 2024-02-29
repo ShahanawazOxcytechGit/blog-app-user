@@ -16,7 +16,6 @@ export default function AllBlog() {
   const [previousimage, setPreviousImage] = useState();
   const [selectedId, setSelectedId] = useState();
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
-  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const editorRef = useRef();
 
   useEffect(() => {
@@ -206,12 +205,6 @@ export default function AllBlog() {
           <Button onClick={handleDialogClose}>Cancel</Button>
           <Button onClick={handleBlogUpdate}>Update</Button>
         </DialogActions>
-      </Dialog>
-      <Dialog open={isDeleteConfirmationOpen} onClose={() => setDeleteConfirmationOpen(false)}>
-        <DialogTitle>Delete Customer</DialogTitle>
-        <DialogContent>
-          <p>Are you sure you want to delete this blog?</p>
-        </DialogContent>
       </Dialog>
     </>
   );

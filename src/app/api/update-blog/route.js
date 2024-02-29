@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { PrismaClient } from "@prisma/client";
+import { put } from "@vercel/blob";
 
 export async function PUT(req) {
   const prisma = new PrismaClient();
@@ -25,35 +26,18 @@ export async function PUT(req) {
       .replace(/-+/g, "-");
 
     if (typeof image === "object") {
-      const previousImagePath = `./public/${previousimage}`;
-
-      if (fs.existsSync(previousImagePath)) {
-        fs.unlinkSync(previousImagePath); // Delete the previous image file
-      }
-
-      const filenameParts = image.name.split(".");
-      const fileExtension = filenameParts[filenameParts.length - 1];
-
-      const bytes = await image.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      const path = `./public/blog_images/${slug}.${fileExtension}`;
-      await new Promise((resolve, reject) => {
-        fs.writeFile(path, buffer, (err) => {
-          if (err) reject(err);
-          else resolve();
-        });
+      const blob = await put(image.name, image, {
+        access: "public",
       });
-
-      const imagePath = `/blog_images/${slug}.${fileExtension}`;
 
       const result = await prisma.blog.update({
         where: { id: Number(selectedId) },
         data: {
           title: title,
           metaData: metaData,
-          image: imagePath,
+          image: blob.url,
           content: content,
+          slug: slug,
         },
       });
 
@@ -61,27 +45,14 @@ export async function PUT(req) {
     }
 
     if (typeof image === "string") {
-      const previousImagePath = `./public/${previousimage}`;
-
-      const fileExtension = path.extname(previousImagePath);
-
-      const trimmedExtension = fileExtension.replace(".", "");
-
-      const newPath = `./public/blog_images/${slug}.${trimmedExtension}`;
-
-      if (fs.existsSync(previousImagePath)) {
-        fs.renameSync(previousImagePath, newPath); // Rename the previous image file
-      }
-
-      const newImagePath = `/blog_images/${slug}.${trimmedExtension}`;
-
       const result = await prisma.blog.update({
         where: { id: Number(selectedId) },
         data: {
           title: title,
           metaData: metaData,
-          image: newImagePath,
+          image: previousimage,
           content: content,
+          slug: slug,
         },
       });
 
