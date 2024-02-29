@@ -52,6 +52,12 @@ const nextConfig = {
 
   images: {
     domains: ["tailwindui.com", "www.w3.org", "images.unsplash.com", "ohio.clbthemes.com", "demo.rivaxstudio.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "jo71jsk46fkbmvax.public.blob.vercel-storage.com",
+      },
+    ],
   },
 };
 

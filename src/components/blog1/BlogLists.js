@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function BlogLists({ blogData }) {
+  console.log(blogData);
   return (
     <div className="space-y-10">
       {blogData &&
